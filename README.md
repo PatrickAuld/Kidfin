@@ -2,6 +2,6 @@
 
 Basic financial tracking for families with children.
 
-## Plan
+## Project plan
 
-See: `plans/implementation-plan.md`
+See: `plans/PROJECT_PLAN.md`
