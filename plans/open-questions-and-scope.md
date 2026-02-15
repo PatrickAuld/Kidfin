@@ -59,3 +59,21 @@ V2 additions:
 - Data export
 
 Question: does that split feel right?
+
+---
+
+## Decisions (2026-02-15)
+
+- Interest cap: **No cap**.
+- Interest setting scope: **Family-wide default with per-child override**.
+- Interest applies to: **Full account balance**.
+- Requirement: **Show interest earned**.
+- Currency: **USD only**.
+- Localization: **English only**.
+- Recurring allowances: **Manual only (no automation in V1)**.
+- Savings goals: **No**.
+- Transaction approvals: **No**; all parents have full access.
+- Notifications: **None**.
+- Export: **None**.
+- Audit trail: **Append-only ledger** (corrections via adjustment entries).
+- Visual theme: **Clean, minimal**.
