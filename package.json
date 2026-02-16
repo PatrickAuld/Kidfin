@@ -1,0 +1,10 @@
+{
+  "name": "kidfin",
+  "private": true,
+  "description": "Kidfin: Kids financial tracker (docs + web app)",
+  "scripts": {
+    "dev": "npm --prefix web run dev",
+    "build": "npm --prefix web run build",
+    "lint": "npm --prefix web run lint"
+  }
+}
