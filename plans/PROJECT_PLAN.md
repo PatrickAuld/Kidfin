@@ -38,7 +38,7 @@ Legend: `T#` task id. Dependencies listed as `depends on: ...`.
 ### Foundation
 
 **T1 — Scaffold Next.js + Tailwind**
-- Output: app skeleton, Tailwind, formatting/linting conventions
+- Output: Next.js app lives in `web/` (App Router + TS + Tailwind + ESLint)
 - depends on: —
 
 **T2 — Env/config conventions**

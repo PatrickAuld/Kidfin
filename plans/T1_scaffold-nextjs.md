@@ -1,6 +1,6 @@
 # T1 — Scaffold Next.js + Tailwind (Plan)
 
-Goal: Create a clean Next.js (App Router) + Tailwind project skeleton for Kidfin (in ) using the **latest stable** dependencies.
+Goal: Create a clean Next.js (App Router) + Tailwind project skeleton for Kidfin (in `web/`) using the **latest stable** dependencies.
 
 ## Commands / Steps
 
