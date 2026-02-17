@@ -53,6 +53,22 @@ export default async function SignUpPage({
           />
         </div>
 
+        <div className="space-y-1">
+          <label className="text-sm font-medium" htmlFor="referral_code">
+            Referral code
+          </label>
+          <input
+            className="w-full rounded-md border px-3 py-2"
+            id="referral_code"
+            name="referral_code"
+            required
+            autoComplete="off"
+          />
+          <p className="text-xs text-zinc-600">
+            Early access is currently invite-only.
+          </p>
+        </div>
+
         <button
           className="w-full rounded-md bg-black px-3 py-2 text-white"
           type="submit"
