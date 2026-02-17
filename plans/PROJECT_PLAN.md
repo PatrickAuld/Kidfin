@@ -164,13 +164,17 @@ Legend: `T#` task id. Dependencies listed as `depends on: ...`.
 
 
 
+**T28 — Production deploy checklist + Vercel deploy**
+- Output: env vars set, Supabase keys configured, deployment verified
+- depends on: T2, T4, T9, T10, T8
+
 ### Growth gating (pre-launch)
 
 **T29 — Gate new signups with referral codes**
 - Goal: prevent open public signups before launch
 - Output: referral code generation + validation; sign-up blocked unless code is present
 - UX: add a referral code field to sign-up; handle invite links
-- Storage: a  table (hashed codes) or KV equivalent; track usage
+- Storage: a `referral_codes` table (hashed codes) or KV equivalent; track usage
 - depends on: T6 (sign-up), T4 (Supabase)
 
 ---
