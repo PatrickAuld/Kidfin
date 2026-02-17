@@ -6,8 +6,19 @@ export async function middleware(request: NextRequest) {
 
   // Public routes.
   const { pathname } = request.nextUrl;
+  const referralOk = request.cookies.get("kidfin_referral_ok")?.value === "1";
+
+  // Early access gate: require referral cookie for sign-in/sign-up.
+  if ((pathname === "/sign-in" || pathname === "/sign-up") && !referralOk) {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = "/referral";
+    redirectUrl.searchParams.set("next", pathname);
+    return NextResponse.redirect(redirectUrl);
+  }
+
   const isPublic =
     pathname === "/" ||
+    pathname.startsWith("/referral") ||
     pathname.startsWith("/sign-in") ||
     pathname.startsWith("/sign-up") ||
     pathname.startsWith("/auth");

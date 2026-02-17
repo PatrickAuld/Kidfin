@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { hasReferralAccess } from "@/lib/referral";
 
 export async function signInWithPassword(formData: FormData) {
   const email = String(formData.get("email") ?? "").trim();
@@ -23,13 +24,11 @@ export async function signInWithPassword(formData: FormData) {
 
 export async function sendMagicLink(formData: FormData) {
   const email = String(formData.get("email") ?? "").trim();
-  const referralCode = String(formData.get("referral_code") ?? "");
 
   // Supabase OTP can create new users depending on project settings.
-  // During early access, require a referral code for magic links too.
-  const { isValidReferralCode } = await import("@/lib/referral");
-  if (!isValidReferralCode(referralCode)) {
-    redirect("/sign-in?error=Invalid%20referral%20code");
+  // During early access, require referral access for magic links too.
+  if (!(await hasReferralAccess())) {
+    redirect("/referral?next=/sign-in");
   }
 
   const supabase = await createSupabaseServerClient();
