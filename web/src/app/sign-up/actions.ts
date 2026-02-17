@@ -2,10 +2,15 @@
 
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getReferralCodeHash, hasReferralAccess } from "@/lib/referral";
 
 export async function signUpWithPassword(formData: FormData) {
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
+
+  if (!(await hasReferralAccess())) {
+    redirect("/referral?next=/sign-up");
+  }
 
   const supabase = await createSupabaseServerClient();
 
@@ -18,6 +23,11 @@ export async function signUpWithPassword(formData: FormData) {
     redirect(`/sign-up?error=${encodeURIComponent(error.message)}`);
   }
 
-  // Depending on Supabase email confirmation settings, user may need to confirm.
+  // Best-effort referral attribution (works when signUp creates a session).
+  const codeHash = await getReferralCodeHash();
+  if (codeHash) {
+    await supabase.rpc("redeem_referral_code_hash", { p_code_hash: codeHash });
+  }
+
   redirect("/app");
 }

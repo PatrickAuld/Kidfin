@@ -172,9 +172,10 @@ Legend: `T#` task id. Dependencies listed as `depends on: ...`.
 
 **T29 — Gate new signups with referral codes**
 - Goal: prevent open public signups before launch
-- Output: referral code generation + validation; sign-up blocked unless code is present
-- UX: add a referral code field to sign-up; handle invite links
-- Storage: a `referral_codes` table (hashed codes) or KV equivalent; track usage
+- Output: referral code validation; sign-up blocked unless code is present
+- V1 implementation: hardcoded referral code (temporary)
+- UX: add a referral code field to sign-up; also require it for magic-link auth to prevent OTP creating new users
+- Storage (later): a `referral_codes` table (hashed codes) or KV equivalent; track usage
 - depends on: T6 (sign-up), T4 (Supabase)
 
 ---

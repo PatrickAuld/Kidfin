@@ -78,6 +78,7 @@ export default async function SignInPage({
             placeholder="you@example.com"
             required
           />
+          {/* Sign-in is gated by /referral; no referral field here. */}
           <button
             className="w-full rounded-md border px-3 py-2"
             type="submit"

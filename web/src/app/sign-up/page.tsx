@@ -53,6 +53,11 @@ export default async function SignUpPage({
           />
         </div>
 
+        <p className="text-xs text-zinc-600">
+          Early access is invite-only. If you have a code, enter it on the
+          referral page.
+        </p>
+
         <button
           className="w-full rounded-md bg-black px-3 py-2 text-white"
           type="submit"
