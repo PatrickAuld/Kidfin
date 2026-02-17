@@ -40,7 +40,19 @@ export default async function AdminPage({
     .order("created_at", { ascending: false })
     .limit(100);
 
+  const { data: redemptions, error: redemptionsError } = await supabase
+    .from("referral_redemptions")
+    .select("referral_code_id")
+    .limit(5000);
+
   if (codesError) throw codesError;
+  if (redemptionsError) throw redemptionsError;
+
+  const redemptionCounts = new Map<string, number>();
+  for (const r of (redemptions ?? []) as Array<{ referral_code_id: string }>) {
+    const id = r.referral_code_id;
+    redemptionCounts.set(id, (redemptionCounts.get(id) ?? 0) + 1);
+  }
 
   async function createCode(formData: FormData) {
     "use server";
@@ -151,7 +163,7 @@ export default async function AdminPage({
                 <div className="flex items-center justify-between gap-4">
                   <div className="font-mono">{c.code_prefix}…</div>
                   <div className="text-zinc-600">
-                    {c.disabled ? "disabled" : "active"} · uses {c.uses_count}
+                    {c.disabled ? "disabled" : "active"} · redeemed {redemptionCounts.get(c.id) ?? 0}
                     {c.max_uses ? `/${c.max_uses}` : ""}
                   </div>
                 </div>

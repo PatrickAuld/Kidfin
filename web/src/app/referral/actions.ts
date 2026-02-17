@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { setReferralAccessCookie } from "@/lib/referral";
+import { setReferralAccessCookies } from "@/lib/referral";
 
 function referralErrorUrl(message: string, next: string) {
   return (
@@ -36,6 +36,13 @@ export async function submitReferralCode(formData: FormData) {
     redirect(referralErrorUrl("Invalid referral code", next));
   }
 
-  await setReferralAccessCookie();
+  // Compute a stable hash of the code to store in a cookie for later attribution.
+  const msg = new TextEncoder().encode(code.toUpperCase().trim());
+  const hashBuffer = await crypto.subtle.digest("SHA-256", msg);
+  const codeHash = Array.from(new Uint8Array(hashBuffer))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+
+  await setReferralAccessCookies({ codeHash });
   redirect(next);
 }
